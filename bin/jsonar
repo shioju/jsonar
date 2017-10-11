@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby
+require 'jsonar'
+Jsonar::CLI.run(ARGV)
