@@ -1,4 +1,5 @@
 require 'json'
+require 'set'
 
 module Jsonar
   class Indexer
@@ -22,11 +23,12 @@ module Jsonar
           update_index(root, item, index)
         end
       elsif input.is_a? Hash
-        input.each do |_, v|
+        input.each_value do |v|
           update_index(root, v, index)
         end
       else
-        index[input] = root
+        index[input] = index[input] || Set.new
+        index[input] << root
       end
 
       index
