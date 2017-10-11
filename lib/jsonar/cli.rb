@@ -2,7 +2,7 @@ require 'jsonar/indexer'
 
 module Jsonar
   class CLI
-    def self.run(args)
+    def self.run(args = [])
       files = parse_args(args)
       return if files.nil?
       contents = File.read(files[0])
