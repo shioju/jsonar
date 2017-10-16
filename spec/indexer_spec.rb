@@ -38,5 +38,10 @@ RSpec.describe Jsonar::Indexer do
       expect(Jsonar::Indexer.build_index(@json))
         .to eq('baz' => [{ 'foo' => { 'bar' => 'baz' } }].to_set)
     end
+
+    it 'raises an error when given invalid json' do
+      expect { Jsonar::Indexer.build_index('invalid json') }
+        .to raise_error JSON::ParserError
+    end
   end
 end

@@ -1,27 +1,30 @@
 require 'jsonar/indexer'
+require 'awesome_print'
 
 module Jsonar
   class CLI
     def self.run(args = [])
       begin
         contents = load_files(args)
+        puts contents
+        index = Jsonar::Indexer.build_index(contents)
       rescue ArgumentError
         puts 'Please specify a JSON file to search in'
         puts 'Usage: jsonar [FILE]...'
         return
-      rescue IOError => e
-        puts e.to_s
+      rescue Errno::ENOENT => e
+        puts e.message
+        return
+      rescue JSON::ParserError => e
+        puts 'JSON file is invalid'
+        puts e.message
         return
       end
-
-      puts contents
-
-      index = Jsonar::Indexer.build_index(contents)
 
       loop do
         query = get_query
         results = search(index, query)
-        puts results
+        show_results(results)
       end
     end
 
@@ -44,6 +47,14 @@ module Jsonar
 
     def self.search(index, query)
       index[query]
+    end
+
+    def self.show_results(result)
+      if result
+        ap result
+      else
+        puts 'No matching record found.'
+      end
     end
   end
 end
