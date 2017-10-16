@@ -12,9 +12,19 @@ RSpec.describe Jsonar::CLI do
     end
   end
 
-  describe '#get_input' do
-    it 'returns the input file path when provided' do
-      expect(Jsonar::CLI.parse_args(%w[foo bar])).to eq(%w[foo bar])
+  describe '#load_files' do
+    it 'raises ArgumentError when no argument provided' do
+      expect { Jsonar::CLI.load_files }.to raise_error ArgumentError
+    end
+
+    it 'raises an error when the specified file is not found' do
+      expect { Jsonar::CLI.load_files 'foo' }.to raise_error Errno::ENOENT
+    end
+
+    it 'loads the file when exists' do
+      expected = "[]\n"
+      actual = Jsonar::CLI.load_files ['fixtures/simple.json']
+      expect(actual).to eq(expected)
     end
   end
 

@@ -3,15 +3,26 @@ require 'jsonar/indexer'
 module Jsonar
   class CLI
     def self.run(args = [])
-      files = parse_args(args)
-      return if files.nil?
-      contents = File.read(files[0])
+      begin
+        contents = load_files(args)
+      rescue ArgumentError
+        puts 'Please specify a JSON file to search in'
+        puts 'Usage: jsonar [FILE]...'
+        return
+      rescue IOError => e
+        puts e.to_s
+        return
+      end
+
       puts contents
 
       index = Jsonar::Indexer.build_index(contents)
-      query = get_query
 
-      puts search(index, query)
+      loop do
+        query = get_query
+        results = search(index, query)
+        puts results
+      end
     end
 
     private_class_method
@@ -20,10 +31,9 @@ module Jsonar
       exit
     end
 
-    def self.parse_args(files)
-      return files unless files.empty?
-      puts 'Please specify a JSON file to search in'
-      puts 'Usage: jsonar [FILE]...'
+    def self.load_files(files)
+      raise ArgumentError, 'No files specified' if files.empty?
+      File.read(files[0])
     end
 
     def self.get_query
@@ -32,6 +42,8 @@ module Jsonar
       query && query.chomp || query
     end
 
-    def self.search(_index, _query); end
+    def self.search(index, query)
+      index[query]
+    end
   end
 end
