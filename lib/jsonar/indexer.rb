@@ -27,6 +27,8 @@ module Jsonar
           update_index(root, v, index)
         end
       else
+        input = input.to_s
+        input = 'null' if input.empty?
         index[input] = index[input] || Set.new
         index[input] << root
       end
