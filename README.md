@@ -18,15 +18,17 @@ For example, given the below JSON file:
 ]
 ```
 
-a search for `red` would return:
+a search for `red` would display the below result (formatted with [awesome_print](https://github.com/awesome-print/awesome_print)):
 
 ```
 [
-    { "name": "apple",
-      "color": "red"
+    [0] {
+         "name" => "apple",
+        "color" => "red"
     },
-    { "name": "strawberry",
-      "color": "red"
+    [1] {
+         "name" => "strawberry",
+        "color" => "red"
     }
 ]
 ```
@@ -39,7 +41,7 @@ Jsonar is available on rubygems.org and can be easily installed with
 
 ## Usage
 
-    $ jsonar path-to-json-file
+    $ jsonar path-to-json-file [paths-to-more-json-files]...
 
 ## Contributing
 
