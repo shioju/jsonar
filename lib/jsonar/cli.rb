@@ -5,9 +5,7 @@ module Jsonar
   class CLI
     def self.run(args = [])
       begin
-        contents = load_files(args)
-        puts contents
-        index = Jsonar::Indexer.build_index(contents)
+        index = Jsonar::Indexer.from_files(args)
       rescue ArgumentError
         puts 'Please specify a JSON file to search in'
         puts 'Usage: jsonar [FILE]...'
@@ -32,11 +30,6 @@ module Jsonar
 
     trap('INT') do
       exit
-    end
-
-    def self.load_files(files)
-      raise ArgumentError, 'No files specified' if files.empty?
-      File.read(files[0])
     end
 
     def self.get_query

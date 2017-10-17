@@ -16,27 +16,11 @@ RSpec.describe Jsonar::CLI do
       allow(Jsonar::CLI).to receive(:loop).and_yield
       allow(Jsonar::CLI).to receive(:load_files).and_return('[]')
 
-      expect(Jsonar::Indexer).to receive(:build_index)
+      expect(Jsonar::Indexer).to receive(:from_files)
       expect(Jsonar::CLI).to receive(:get_query)
       expect(Jsonar::CLI).to receive(:search)
       expect(Jsonar::CLI).to receive(:show_results)
       Jsonar::CLI.run 'foo'
-    end
-  end
-
-  describe '#load_files' do
-    it 'raises ArgumentError when no argument provided' do
-      expect { Jsonar::CLI.load_files }.to raise_error ArgumentError
-    end
-
-    it 'raises an error when the specified file is not found' do
-      expect { Jsonar::CLI.load_files 'foo' }.to raise_error Errno::ENOENT
-    end
-
-    it 'loads the file when exists' do
-      expected = "[]\n"
-      actual = Jsonar::CLI.load_files ['fixtures/simple.json']
-      expect(actual).to eq(expected)
     end
   end
 
