@@ -35,7 +35,7 @@ a search for `red` would display the below result (formatted with [awesome_print
 
 ## Installation
 
-Jsonar is available on rubygems.org and can be easily installed with
+Jsonar is available on [rubygems.org](http://rubygems.org/gems/jsonar) and can be easily installed with
 
     $ gem install jsonar
 

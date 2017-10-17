@@ -5,8 +5,8 @@ Gem::Specification.new do |s|
   s.version     = Jsonar::VERSION
   s.executables << 'jsonar'
   s.date        = '2017-10-10'
-  s.summary     = 'Jsonar is a command line tool for searching in JSON files'
-  s.description = 'Jsonar is a command line tool for searching in JSON files'
+  s.summary     = 'Command-line tool for searching in JSON files'
+  s.description = 'Command-line tool for searching in JSON files'
   s.authors     = ['Shioju']
   s.email       = 'shioju12@gmail.com'
   s.files       = ['lib/jsonar.rb', 'lib/jsonar/version.rb', 'lib/jsonar/cli.rb', 'lib/jsonar/indexer.rb']
