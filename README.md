@@ -1,5 +1,7 @@
 # Jsonar
 
+[![Build Status](https://travis-ci.org/shioju/jsonar.svg?branch=master)](https://travis-ci.org/shioju/jsonar)
+
 Jsonar is a command-line tool for searching into JSON files.
 
 For example, given the below JSON file:
