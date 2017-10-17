@@ -3,11 +3,10 @@ require 'set'
 
 module Jsonar
   class Indexer
-    def self.build_index(json)
+    def self.build_index(json, index = {})
       input = JSON.parse(json)
 
       # assume the json input is always an array at the top level
-      index = {}
       input.each do |item|
         update_index(item, item, index)
       end
